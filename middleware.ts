@@ -11,32 +11,32 @@ const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
 
-    // const { nextUrl } = req;
-    // const isLoggedIn = !!req.auth;
+    const { nextUrl } = req;
+    const isLoggedIn = !!req.auth;
 
-    // const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    // const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+    const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-    // if (isApiAuthRoute) {
-    //     return;
-    // }
+    if (isApiAuthRoute) {
+        return;
+    }
 
-    // if (isAuthRoute) {
-    //     if (isLoggedIn) {
-    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    //     }
-    //     return;
-    // }
+    if (isAuthRoute) {
+        if (isLoggedIn) {
+            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+        }
+        return;
+    }
 
-    // return;
+    return;
 
 });
 
-// import { NextResponse } from 'next/server'
-// import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-// export function middleware(request: NextRequest) {
-// }
+export function middleware(request: NextRequest) {
+}
 
 // Optionally, don't invoke Middleware on some paths
 export const config = {
