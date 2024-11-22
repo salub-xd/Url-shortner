@@ -98,9 +98,9 @@ export default function Home() {
 
   }
   return (
-    <div className="mt-10 max-w-lg mx-4 px-4 py-8  rounded-md sm:mx-auto">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <div className="mt-10 h-screen max-w-lg mx-4 px-4 py-8 rounded-md sm:mx-auto ">
+      <Form {...form} >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-screen">
           <FormField
             control={form.control}
             name="originalUrl"
