@@ -1,4 +1,3 @@
-import { signIn } from "@/auth"
 import LoginForm from "@/components/auth/Login-Form";
 
 const LoginPage = () => {

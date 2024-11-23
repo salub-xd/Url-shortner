@@ -1,199 +1,126 @@
-"use client"
+import { BarChart3, Link, QrCode, Shield } from "lucide-react"
+import Image from "next/image"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { FormError } from "@/components/auth/form-error"
-import { useRouter } from "next/navigation"
-import { CalendarIcon } from "lucide-react"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
-import { Calendar } from "@/components/ui/calendar"
-
-const formSchema = z.object({
-  originalUrl: z.string().url().min(2, {
-    message: "Original url must be at least 2 characters.",
-  }),
-  slug: z.string().optional(),
-  qrCodeUrl: z.string().optional(),
-  password: z.string().min(3, {
-    message: "Password must be at least 3 characters.",
-  }).optional().or(z.literal("")),
-  expiredAt: z.date().optional(),
-})
+import { Separator } from "@/components/ui/separator"
+import ContactPage from "@/components/app/Contact";
+import PricingPage from "@/components/app/Pricing";
+import { UrlShortnerForm } from "@/components/app/Url-Shortner-Form";
 
 export default function Home() {
 
-  const router = useRouter();
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<string | undefined>();
-  const [showAdvance, setShowAdvance] = useState<boolean>(false);
-
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      originalUrl: "",
-      slug: "",
-      qrCodeUrl: "",
-      password: "",
-    },
-  })
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    try {
-      setLoading(true);
-
-      const response = await fetch(`/api/url`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          originalUrl: values.originalUrl,
-          slug: values.slug,
-          password: values.password,
-          qrCodeUrl: values.qrCodeUrl,
-          expiredAt: values.expiredAt,
-        })
-      });
-
-      const resData = await response.json();
-
-      // console.log(resData);
-
-      if (resData.error) {
-        setIsError(resData.error);
-      } else {
-
-        router.push(`/success?slug=${resData.slug}`);
-      }
-
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message); // Access the error message safely
-        setIsError(error.message); // Use the error message, which is a string
-      } else {
-        console.log('An unexpected error occurred');
-        setIsError('An unexpected error occurred'); // Provide a fallback error message
-      }
-    } finally {
-      setLoading(false);
-    }
-
-  }
   return (
-    <div className="mt-10 h-screen max-w-lg mx-4 px-4 py-8 rounded-md sm:mx-auto ">
-      <Form {...form} >
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-screen">
-          <FormField
-            control={form.control}
-            name="originalUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Website Url</FormLabel>
-                <FormControl>
-                  <Input placeholder="https://example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {showAdvance ? <>
-            <FormField
-              control={form.control}
-              name="slug"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name <small>(Optional)</small></FormLabel>
-                  <FormControl>
-                    <Input placeholder="slug" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password <small>(Optional)</small></FormLabel>
-                  <FormControl>
-                    <Input placeholder="*******" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="expiredAt"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Expire At</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date < new Date()
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormDescription>
-                    Your date of Link expiration.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </> : null}
-          {isError && <FormError message={isError} />}
-          <Button type="submit" disabled={loading}>Create</Button>
-          <div className="flex justify-between">
-
-            <Button type="button" onClick={() => setShowAdvance(!showAdvance)} disabled={loading}>{!showAdvance ? "  Show Advanced features" : "Remove Advanced features"}</Button>
+    <div className="mt-10  mx-4 px-4 py-8 rounded-md sm:mx-auto ">
+      <div className="flex flex-col">
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
+          <div className="text-center space-y-4 mb-12 max-w-lg">
+            <div className="flex items-center justify-center mb-6">
+              <Link className="h-12 w-12 text-primary" />
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
+              Simplify Your Links
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
+              Transform long, unwieldy URLs into clean, shareable links with our
+              powerful URL shortener service.
+            </p>
           </div>
-        </form>
-      </Form>
+          <div className="w-full max-w-md mx-auto">
+            <UrlShortnerForm />
+          </div>
+          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-4 max-w-5xl mx-auto">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
+              >
+                <feature.icon className="h-8 w-8 mb-4 text-primary" />
+                <h3 className="font-semibold mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Dashboard Preview Section */}
+        <section className="bg-muted/50 py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight lg:text-4xl mb-4">
+                Powerful Dashboard
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
+                Track, analyze, and manage all your shortened links in one place.
+              </p>
+            </div>
+
+            <div className="relative rounded-lg border bg-background shadow-2xl overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630"
+                alt="Dashboard Preview"
+                width={1200}
+                height={630}
+                className="w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/20" />
+            </div>
+          </div>
+        </section>
+        {/* <section className="py-24">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+                  <div className="text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section> */}
+        <PricingPage />
+        <Separator />
+        <ContactPage />
+      </div>
     </div>
   )
 }
+
+
+const features = [
+  {
+    title: "Custom URLs",
+    description: "Create branded links with your own custom slugs.",
+    icon: Link,
+  },
+  {
+    title: "QR Codes",
+    description: "Generate QR codes for your shortened links instantly.",
+    icon: QrCode,
+  },
+  {
+    title: "Link Protection",
+    description: "Secure your links with password protection.",
+    icon: Shield,
+  },
+  {
+    title: "Analytics",
+    description: "Track clicks and analyze link performance.",
+    icon: BarChart3,
+  },
+];
+
+// const stats = [
+//   {
+//     value: "10M+",
+//     label: "Links Shortened",
+//   },
+//   {
+//     value: "1M+",
+//     label: "Active Users",
+//   },
+//   {
+//     value: "99.9%",
+//     label: "Uptime",
+//   },
+// ];

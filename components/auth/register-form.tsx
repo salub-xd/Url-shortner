@@ -132,7 +132,7 @@ const RegisterForm = () => {
                                     <Link
                                         href={'/login'}
                                     >
-                                        Dont have account?
+                                        Already have account?
                                     </Link>
                                 </Button>
                             </FormItem>

@@ -12,8 +12,8 @@ export async function POST(req: Request) {
         const session = await auth();
         const userId = session?.user.id;
 
-        const { originalUrl, slug, expiredAt, password, qrCodeUrl } = await req.json();
-        console.log(originalUrl, slug, expiredAt, password, qrCodeUrl);
+        const { originalUrl, slug, expiredAt, password, qrCode } = await req.json();
+        console.log(originalUrl, slug, expiredAt, password, qrCode);
 
 
         if (!originalUrl) {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         const generatedSlug = slug || nanoid(8);
         const shortUrl = `${process.env.BASE_URL}/${generatedSlug}`;
 
-        const qrCode = qrCodeUrl || await QRCode.toDataURL(shortUrl);
+        const qrCodeUrl = qrCode || await QRCode.toDataURL(shortUrl);
 
         const createUrl = await prisma.url.create({
             data: {
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
                 password: hashPassword,
                 isProtected: hashPassword ? true : false,
                 userId: userId || null,
-                qrCodeUrl: qrCode,
+                qrCodeUrl: qrCodeUrl,
             }
         });
 

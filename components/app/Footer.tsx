@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { Github, Twitter } from "lucide-react";
 
 export const Footer = () => {
   const routes = [
@@ -9,38 +11,79 @@ export const Footer = () => {
     { label: 'Contact', href: '/contact' },
   ];
 
-  const links = [
-    { label: 'Twitter', href: 'https://twitter.com' },
-    { label: 'Instagram', href: 'https://instagram.com' },
-    { label: 'Facebook', href: 'https://facebook.com' },
-  ];
-
   return (
-    <footer className="border-y bg-white mt-5 w-full dark:bg-black">
-      <div className="flex px-5 py-2 justify-around text-black dark:text-white">
-        <div className="text-center flex flex-col justify-center">
-          <Link href={'/'} className="text-xl sm:text-3xl">kisaner</Link>
-        </div>
-        <nav className="flex flex-col justify-center items-center text-center px-4">
-          <ul>
-            {routes.map((route) => (
-              <li key={route.href} className="text-xs sm:text-lg">
-                <Link href={route.href}>{route.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <nav className="flex flex-col justify-center items-center text-center px-4">
-          <ul>
-            {links.map((link) => (
-              <li key={link.href} className="text-xs sm:text-lg">
-                <Link href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`Visit our ${link.label} page`}>
-                  {link.label}
+    <footer className="border-t">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold">URL Shortener</h3>
+            <p className="text-sm text-muted-foreground">
+              Making the web more accessible, one link at a time.
+            </p>
+            <div className="flex space-x-3">
+              <Button variant="ghost" size="icon">
+                <Github className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Twitter className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-3">Product</h3>
+            <ul className="space-y-2 text-sm">
+              {routes.map((route, i) =>
+                <li key={i}>
+                  <Link href={route.href} className="text-muted-foreground hover:text-foreground">
+                    {route.label}
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-3">Support</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/contact" className="text-muted-foreground hover:text-foreground">
+                  Contact
                 </Link>
               </li>
-            ))}
-          </ul>
-        </nav>
+              <li>
+                <Link href="/docs" className="text-muted-foreground hover:text-foreground">
+                  Documentation
+                </Link>
+              </li>
+              <li>
+                <Link href="/api" className="text-muted-foreground hover:text-foreground">
+                  API
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-3">Legal</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/privacy" className="text-muted-foreground hover:text-foreground">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="text-muted-foreground hover:text-foreground">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-6 border-t text-center text-sm text-muted-foreground">
+          © {new Date().getFullYear()} URL Shortener. All rights reserved.
+        </div>
       </div>
     </footer>
   );

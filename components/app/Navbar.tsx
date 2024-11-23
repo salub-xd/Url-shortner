@@ -15,6 +15,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Menu, X } from "lucide-react"
+import { ModeToggle } from "./Mode-Toggle"
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -112,19 +113,22 @@ export function Navbar() {
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <Link href="/docs" legacyBehavior passHref>
+                            <Link href="/pricing" legacyBehavior passHref>
                                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                    Documentation
+                                    Pricing
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu >
             </div>
-            <div>
-                <button className='hidden h-10 animate-background-shine items-center justify-center rounded-md border border-gray-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50 sm:inline-flex'>
+            <div className="flex justify-center items-center gap-x-4">
+                <ModeToggle />
+                <Link href={'/register'}>
+                <button className='hidden h-10 animate-background-shine items-center justify-center rounded-md border border-gray-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-gray-200 transition-colors sm:inline-flex'>
                     Sign Up
                 </button>
+                </Link>
             </div>
             <button
                 onClick={() => setDropdownMenu(!dropdownMenu)}
