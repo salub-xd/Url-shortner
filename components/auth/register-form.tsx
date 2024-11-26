@@ -64,8 +64,8 @@ const RegisterForm = () => {
     }
 
     return (
-        <div className="mt-20 mb-20 max-w-md mx-4 px-4 py-8 border rounded-md sm:mx-auto">
-            <Social/>
+        <div className="mt-20 mb-20 max-w-md px-4 py-8 border rounded-md mx-auto bg-white dark:bg-black">
+            <Social />
             <div className="flex items-center justify-center my-4">
                 <div className="border-t border-gray-300 flex-grow"></div>
                 <span className="mx-2 text-sm text-gray-500">OR CONTINUE WITH</span>

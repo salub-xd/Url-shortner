@@ -21,7 +21,7 @@ import { FormError } from '@/components/auth/form-error';
 import { FormSuccess } from '@/components/auth/form-success';
 // import { login } from '@/actions/login';
 import { useState, useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import { Social } from './social-login';
@@ -54,7 +54,6 @@ const LoginForm = () => {
         startTransition(() => {
             login(values).then((data) => {
                 if (data?.error) {
-                    form.reset();
                     setIsError(data?.error)
                 }
                 // if (data?.success) {
@@ -70,7 +69,7 @@ const LoginForm = () => {
 
 
     return (
-        <div className="mt-20 mb-20 max-w-md mx-4 px-4 py-8 border rounded-md sm:mx-auto">
+        <div className="mt-20 mb-20 max-w-md px-4 py-8 border rounded-md mx-auto bg-white dark:bg-black">
             <h2 className="text-2xl font-semibold mb-4">Login</h2>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -138,7 +137,7 @@ const LoginForm = () => {
                         <span className="mx-2 text-sm text-gray-500">OR CONTINUE WITH</span>
                         <div className="border-t border-gray-300 flex-grow"></div>
                     </div>
-                    <Social/>
+                    <Social />
                 </form>
             </Form>
         </div>

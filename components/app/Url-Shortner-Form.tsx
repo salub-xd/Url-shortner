@@ -115,18 +115,19 @@ export const UrlShortnerForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="flex gap-2">
+                                <div className="flex items-center gap-2">
                                     <Input
                                         placeholder="Enter your long URL here..."
                                         {...field}
                                         className="flex-1"
                                     />
-                                    <Button type="submit" disabled={isLoading}>
+                                    {/* <Button type="submit" disabled={isLoading}> */}
+                                    <Button className='hidden animate-background-shine items-center justify-center rounded-md border border-gray-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-gray-200 transition-colors sm:inline-flex hover:opacity-80 hover:bg-black/10 trans'>
                                         {isLoading ? (
                                             <Loader2 className="h-4 w-4 animate-spin" />
                                         ) : (
                                             <>
-                                                <Link2 className="h-4 w-4 mr-2" />
+                                                <Link2 className="h-4 w-4 " />
                                                 Shorten
                                             </>
                                         )}

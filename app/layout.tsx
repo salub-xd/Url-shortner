@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/provider/theme-provider";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { Navbar } from "@/components/app/Navbar";
@@ -67,10 +67,8 @@ export default async function RootLayout({
             {/* <div className="relative h-screen w-full bg-slate-950">
 
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] "> */}
-            <Navbar />
-            <div className="mt-10">
-              {children}
-            </div>
+            <Navbar user={session?.user && session.user} />
+            {children}
             <Footer />
             {/* </div>
             </div> */}

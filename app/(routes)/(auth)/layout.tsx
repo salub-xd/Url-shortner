@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Kisaner Market",
-    description: "Kisaner Market to sell your goods directly to needy",
+    title: "Auth",
+    description: "",
 };
 
 export default async function AuthLayout({
@@ -15,7 +15,7 @@ export default async function AuthLayout({
 }>) {
 
     return (
-            <div className={'pt-20 pb-5 '}>
+            <div className={'mx-4 pt-20 pb-5 '}>
                 {children}
             </div>
     );
