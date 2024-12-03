@@ -36,6 +36,7 @@ export async function POST(req: Request) {
         await prisma.click.create({
             data: {
                 urlId: url.id, // Relating the click to the URL
+                userId:url.userId, // Relating the click to the USER 
                 country: dataLocation?.country || null,
                 city: dataLocation?.city || null,
                 postalcode: dataLocation?.postal || null,

@@ -68,13 +68,3 @@ export const RegisterSchema = z.object({
 })
 
 
-// Post Schemas
-
-export const PostSchema = z.object({
-    title: z.string(),
-    image: z.string().optional(),
-})
-
-export const FollowSchema = z.object({
-    id: z.string(),
-})

@@ -11,10 +11,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { AlertModal } from '@/components/modals/alert-modal';
 import { Badge } from '@/components/ui/badge';
 import ImageUpload from '@/components/ui/image-upload';
-import { User } from '@/types';
+import { User } from '@/types/types';
 import { PasswordDialog } from '@/components/ui/change-password-dialog';
 import { DeleteAccountDialog } from '@/components/ui/delete-account-dialog';
 import { useToast } from "@/hooks/use-toast";
@@ -54,8 +53,21 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
             toast({ title: "User updated" });
             router.refresh();
         } catch (error: unknown) {
-            setIsError(error.response.data.message);
-            toast({ title: "Something went wrong", description: error.response.data.message });
+            if (axios.isAxiosError(error)) {
+                // AxiosError has response and data properties
+                setIsError(error.response?.data?.message || "An error occurred");
+                toast({ 
+                    title: "Something went wrong", 
+                    description: error.response?.data?.message || "An unexpected error occurred" 
+                });
+            } else {
+                // Generic error handling for other error types
+                setIsError("An unexpected error occurred");
+                toast({ 
+                    title: "Something went wrong", 
+                    description: "An unexpected error occurred" 
+                });
+            }
         } finally {
             setLoading(false);
         }

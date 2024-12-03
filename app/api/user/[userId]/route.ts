@@ -28,7 +28,7 @@ export async function PATCH(req: Request, { params }: { params: { userId: string
     try {
         const session = await auth();
         const userId = session?.user.id;
-        const { name, username, email } = await req.json();
+        const { name, username, email,image } = await req.json();
 
         if (!userId) {
             return NextResponse.json('Unauthorized', { status: 400 });
@@ -68,6 +68,7 @@ export async function PATCH(req: Request, { params }: { params: { userId: string
                 name,
                 username,
                 email,
+                image
             }
         });
 
@@ -137,6 +138,7 @@ export async function PUT(req: Request, { params }: { params: { userId: string }
         return NextResponse.json(error, { status: 400 });
     }
 }
+
 export async function DELETE(req: Request, { params }: { params: { userId: string } }) {
     try {
         const session = await auth();

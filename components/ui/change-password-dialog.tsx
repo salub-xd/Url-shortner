@@ -106,7 +106,7 @@ export function PasswordDialog({ userId }: PasswordDialogProps) {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="******" {...field} />
+                                        <Input type={'password'} placeholder="******" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -120,7 +120,7 @@ export function PasswordDialog({ userId }: PasswordDialogProps) {
                                 <FormItem>
                                     <FormLabel>New password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="******" {...field} />
+                                        <Input type={'password'} placeholder="******" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -133,7 +133,7 @@ export function PasswordDialog({ userId }: PasswordDialogProps) {
                                 <FormItem>
                                     <FormLabel>Confirm New password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="******" {...field} />
+                                        <Input type={'password'} placeholder="******" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

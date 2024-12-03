@@ -28,32 +28,32 @@ interface NavbarUserProps {
 const components: { title: string; href: string; description: string }[] = [
     {
         title: "Custom URL Shortening",
-        href: "/features/custom-urls",
+        href: "/features",
         description: "Create short, memorable custom URLs to enhance branding and link management.",
     },
     {
         title: "Analytics Dashboard",
-        href: "/features/analytics",
+        href: "/features",
         description: "Track clicks, geographic data, and device usage to understand link performance.",
     },
     {
         title: "QR Code Generator",
-        href: "/features/qr-codes",
+        href: "/features",
         description: "Generate QR codes for shortened links to improve offline engagement.",
     },
     {
         title: "Link Expiration",
-        href: "/features/link-expiration",
+        href: "/features",
         description: "Set expiration dates or click limits to control link availability.",
     },
     {
         title: "Password Protection",
-        href: "/features/password-protection",
+        href: "/features",
         description: "Secure your links with a password for restricted access.",
     },
     {
         title: "Bulk URL Shortening",
-        href: "/features/bulk-shortening",
+        href: "/features",
         description: "Shorten multiple URLs at once with easy-to-use bulk tools.",
     },
 ]
