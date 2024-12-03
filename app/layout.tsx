@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import { ThemeProvider } from "@/provider/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
@@ -56,6 +57,7 @@ export default async function RootLayout({
             </div>
             <Navbar user={session?.user && session.user} />
             {children}
+            <Analytics />
             <Footer />
           </ThemeProvider>
         </body>
