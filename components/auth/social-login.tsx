@@ -19,6 +19,7 @@ export const Social = () => {
                 callbackUrl: DEFAULT_LOGIN_REDIRECT,
             });
         } catch (error) {
+            console.error('An error occurred:', error);
             return null;
         } finally {
             setIsPending(false)

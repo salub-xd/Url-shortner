@@ -10,9 +10,9 @@ import {
 import { ClickColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Copy, MoreHorizontal } from "lucide-react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CellActionProps {
     data: ClickColumn
@@ -21,11 +21,13 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
+    const { toast } = useToast();
+
     const router = useRouter();
 
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success('Color Id copied to the clipboard.')
+        toast({ title: 'Color Id copied to the clipboard.' })
     }
 
     useEffect(() => {

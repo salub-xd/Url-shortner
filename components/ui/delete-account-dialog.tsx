@@ -59,8 +59,19 @@ export function DeleteAccountDialog({ userId }: PasswordDialogProps) {
             setIsOpen(false);
             router.refresh();
         } catch (error: unknown) {
-            setIsError(error.response.data.message);
-            toast({ title: "Something went wrong", description: error.response.data.message });
+            if (error instanceof Error) {
+                setIsError(error.message);
+                toast({
+                  title: "Something went wrong",
+                  description: error.message,
+                });
+              } else {
+                setIsError("An unexpected error occurred.");
+                toast({
+                  title: "Something went wrong",
+                  description: "An unexpected error occurred.",
+                });
+              }
         } finally {
             setLoading(false);
         }

@@ -18,6 +18,8 @@ import { PasswordDialog } from '@/components/ui/change-password-dialog';
 import { DeleteAccountDialog } from '@/components/ui/delete-account-dialog';
 import { useToast } from "@/hooks/use-toast";
 import { FormError } from '@/components/auth/form-error';
+import { logout } from '@/actions/logout';
+import { LogOut } from 'lucide-react';
 
 interface SettingsFormProps {
     initialData: User;
@@ -56,16 +58,16 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
             if (axios.isAxiosError(error)) {
                 // AxiosError has response and data properties
                 setIsError(error.response?.data?.message || "An error occurred");
-                toast({ 
-                    title: "Something went wrong", 
-                    description: error.response?.data?.message || "An unexpected error occurred" 
+                toast({
+                    title: "Something went wrong",
+                    description: error.response?.data?.message || "An unexpected error occurred"
                 });
             } else {
                 // Generic error handling for other error types
                 setIsError("An unexpected error occurred");
-                toast({ 
-                    title: "Something went wrong", 
-                    description: "An unexpected error occurred" 
+                toast({
+                    title: "Something went wrong",
+                    description: "An unexpected error occurred"
                 });
             }
         } finally {
@@ -182,6 +184,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 {!initialData.isOAuth &&
                     <PasswordDialog userId={initialData.id} />
                 }
+                <Button variant={'destructive'} onClick={() => logout()}><LogOut className='w-5 h-5 mr-1'/> Logout</Button>
                 <DeleteAccountDialog userId={initialData.id} />
             </div>
         </>

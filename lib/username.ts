@@ -12,6 +12,7 @@ export const getUserByUsername = async (username: string) => {
         return user;
 
     } catch (error) {
+        console.log(error);
         return null;
     }
 }
@@ -29,7 +30,7 @@ export const generateUsername = async (email: string) => {
         username = username.substring(0, maxLength);
     }
 
-    let usernameAvailable = await getUserByUsername(username);
+    const usernameAvailable = await getUserByUsername(username);
 
     if (usernameAvailable) {
         const randomNumber = Math.floor(Math.random() * 1000); // Generate a random number between 0 and 999
@@ -41,7 +42,7 @@ export const generateUsername = async (email: string) => {
 
 export const saveUsername = async (id: string, username: string) => {
 
-    let saveUsername = await prisma.user.update({
+    const saveUsername = await prisma.user.update({
         where: {
             id
         },

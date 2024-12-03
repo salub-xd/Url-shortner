@@ -1,5 +1,6 @@
 'use client';
 import { CldUploadWidget } from 'next-cloudinary';
+import type { CloudinaryUploadWidgetResults } from 'next-cloudinary';
 
 import React, { useEffect, useState } from 'react'
 import { Button } from './button';
@@ -25,9 +26,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         setIsMounted(true);
     }, []);
 
-    const onUpload = (result: any) => {
-        onChange(result.info.secure_url)
-    }
+    const onUpload = (result: CloudinaryUploadWidgetResults) => {
+        if (result.info && typeof result.info === 'object' && 'secure_url' in result.info) {
+            onChange(result.info.secure_url);
+        } else {
+            console.error("Upload result is missing a secure URL.");
+        }
+    };
 
     if (!isMounted) {
         return null;

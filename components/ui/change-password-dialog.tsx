@@ -18,7 +18,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import toast from 'react-hot-toast';
 import { Separator } from './separator';
 import { useToast } from '@/hooks/use-toast';
 import { FormError } from '../auth/form-error';
@@ -74,8 +73,19 @@ export function PasswordDialog({ userId }: PasswordDialogProps) {
             setIsOpen(false);
 
         } catch (error: unknown) {
-            setIsError(error.response.data.message);
-            toast({ title: "Something went wrong", description: error.response.data.message });
+            if (error instanceof Error) {
+                setIsError(error.message);
+                toast({
+                  title: "Something went wrong",
+                  description: error.message,
+                });
+              } else {
+                setIsError("An unexpected error occurred.");
+                toast({
+                  title: "Something went wrong",
+                  description: "An unexpected error occurred.",
+                });
+              }
         } finally {
             setLoading(false);
         }
