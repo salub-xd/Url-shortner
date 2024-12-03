@@ -21,9 +21,11 @@ export const Footer = () => {
               Making the web more accessible, one link at a time.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon">
-                <Github className="h-4 w-4" />
-              </Button>
+              <Link href={'https://github.com/salub-xd'} target="_blank">
+                <Button variant="ghost" size="icon">
+                  <Github className="h-4 w-4" />
+                </Button>
+              </Link>
               <Button variant="ghost" size="icon">
                 <Twitter className="h-4 w-4" />
               </Button>
@@ -85,6 +87,6 @@ export const Footer = () => {
           © {new Date().getFullYear()} URL Shortener. All rights reserved.
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
