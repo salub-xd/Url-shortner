@@ -11,7 +11,7 @@ import { UrlColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Copy, Edit, Link, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/alert-modal";
 import { useToast } from "@/hooks/use-toast";
@@ -73,11 +73,6 @@ export const CellAction: React.FC<CellActionProps> = ({
             toast({ title: "QR Code not available" });
         }
     };
-
-    useEffect(() => {
-        router.refresh();
-
-    })
 
     return (
         <>
