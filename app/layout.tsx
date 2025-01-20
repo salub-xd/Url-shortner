@@ -6,8 +6,6 @@ import { ThemeProvider } from "@/provider/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { Navbar } from "@/components/app/Navbar";
-import { Footer } from "@/components/app/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,6 +21,42 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Shortify - Url-Shornter",
   description: "Shorten, track, and manage your links easily with our fast and secure URL shortener service. Create custom short URLs, monitor click analytics, and enhance your sharing experience online.",
+  keywords: [
+    "Salub",
+    "Shortify",
+    "URL shortener",
+    "Shortify shortener",
+    "link shortener",
+    "short URLs",
+    "bitly alternative",
+    "custom short links",
+    "trackable links",
+  ],
+  authors: [{ name: "Salub", url: "https://salub.netlify.app" }],
+  openGraph: {
+    title: "Shortify - URL Shortener",
+    description:
+      "Create and manage short URLs effortlessly with Shortify. Perfect for businesses, creators, and anyone looking to simplify their links.",
+    url: "https://links-shortify.vercel.app",
+    siteName: "Shortify - URL Shortener",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Shortify - URL Shortener",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Salub - URL Shortener",
+    description:
+      "Simplify your links with Shortify, the fast and efficient URL shortener. Share smarter today.",
+    images: ["/og-image.png"],
+  },
+
 };
 
 export default async function RootLayout({
@@ -35,33 +69,23 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session} >
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster />
-            <div className="fixed left-0 top-0 -z-10 h-full w-full">
-              <div className="relative h-full w-full bg-white dark:bg-black ">
-                <div className="dark:animate-beam  dark:absolute dark:bottom-0 dark:left-0 dark:right-0 dark:top-0  dark:bg-[linear-gradient(to_right,#4f4f4f2e_2px,transparent_2px),linear-gradient(to_bottom,#4f4f4f2e_2px,transparent_2px)] dark:bg-[size:50px_44px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
-                </div>
-                <div className=" dark:absolute dark:left-0 dark:right-0 dark:top-[-10%  dark:h-[1000px] dark:w-[1000px]  dark:rounded-full dark:bg-[radial-gradient(circle_400px_at_50%_200px,#fbfbfb36,#000)]">
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:50px_44px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-              </div>
-            </div>
-            <Navbar user={session?.user && session.user} />
-            {children}
-            <Analytics />
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </html >
-    </SessionProvider >
+          <Toaster />
+          <Analytics />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  </SessionProvider >
   );
 }
